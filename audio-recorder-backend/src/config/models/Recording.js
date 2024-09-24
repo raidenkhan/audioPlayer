@@ -5,6 +5,10 @@ const RecordingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+    default: 'Untitled recording',
+  },
   duration: {
     type: Number,
     required: true,

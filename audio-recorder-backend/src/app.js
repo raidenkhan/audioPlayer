@@ -2,18 +2,22 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
-const socketIo = require('socket.io');
+//const socketIo = require('socket.io');
 const connectDB = require('./config/database');
 const recordingsRouter = require('./config/Routes/recordings');
+//const authRouter = require('./config/Routes/auth');
+
+// ... other code
+
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"]
-  }
-});
+// const io = socketIo(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST"]
+//   }
+// });
 
 const PORT = process.env.PORT || 3001;
 
@@ -24,21 +28,22 @@ app.use(express.json());
 
 app.use('/api/recordings', recordingsRouter);
 
-io.on('connection', (socket) => {
-  console.log('New client connected');
+
+// io.on('connection', (socket) => {
+//   console.log('New client connected');
   
-  socket.on('startRecording', (data) => {
-    socket.broadcast.emit('recordingStarted', data);
-  });
+//   socket.on('startRecording', (data) => {
+//     socket.broadcast.emit('recordingStarted', data);
+//   });
 
-  socket.on('stopRecording', (data) => {
-    socket.broadcast.emit('recordingStopped', data);
-  });
+//   socket.on('stopRecording', (data) => {
+//     socket.broadcast.emit('recordingStopped', data);
+//   });
 
-  socket.on('disconnect', () => {
-    console.log('Client disconnected');
-  });
-});
+//   socket.on('disconnect', () => {
+//     console.log('Client disconnected');
+//   });
+// });
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

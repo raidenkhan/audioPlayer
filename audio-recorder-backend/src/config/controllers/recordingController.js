@@ -3,11 +3,12 @@ const { saveFile, deleteFile } = require('../utils/fileStorage');
 
 exports.createRecording = async (req, res) => {
   try {
-    const { duration } = req.body;
+    const { duration, name } = req.body;
     const filename = await saveFile(req.file);
     const recording = new Recording({
       filename,
       duration,
+      name: name || 'Untitled recording',
     });
     await recording.save();
     res.status(201).json(recording);
